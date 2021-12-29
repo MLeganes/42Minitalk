@@ -6,13 +6,20 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 17:51:42 by amorcill          #+#    #+#             */
-/*   Updated: 2021/12/29 15:03:36 by amorcill         ###   ########.fr       */
+/*   Updated: 2021/12/29 17:40:55 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 t_minitalk	g_mt;
+
+static void	ft_init_char(void)
+{
+	g_mt.character = 0;
+	g_mt.bits = 0;
+	g_mt.mask = 128;
+}
 
 static void	ft_handler_minitalk(int sig)
 {
@@ -32,14 +39,13 @@ static void	ft_handler_minitalk(int sig)
 			write(1, "\n", 1);
 		else
 			write(1, &g_mt.character, 1);
-		g_mt.character = 0;
-		g_mt.bits = 0;
-		g_mt.mask = 128;
+		ft_init_char();
 	}
 }
 
 void	server(void)
 {
+	ft_init_char();
 	signal(SIGUSR2, ft_handler_minitalk);
 	signal(SIGUSR1, ft_handler_minitalk);
 	while (1)
@@ -51,13 +57,8 @@ void	server(void)
 
 int	main(void)
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("Server pid is: %d \n", pid);
-	g_mt.bits = 0;
-	g_mt.character = 0;
-	g_mt.mask = 128;
+	g_mt.pid = getpid();
+	ft_printf("Server pid is: %d \n", g_mt.pid);
 	server();
 	return (0);
 }

@@ -6,11 +6,17 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 09:53:46 by amorcill          #+#    #+#             */
-/*   Updated: 2021/12/29 15:06:46 by amorcill         ###   ########.fr       */
+/*   Updated: 2021/12/29 17:45:25 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+static void	ft_exit_failure(void)
+{
+	ft_printf("Run the Client with \"./client SERVER_PID MESSAGE\" \n");
+	exit (EXIT_FAILURE);
+}
 
 static void	ft_post_char(pid_t pid, unsigned char c)
 {
@@ -34,7 +40,7 @@ static void	ft_post_char(pid_t pid, unsigned char c)
 		mask = mask / 2;
 		ft_printf("mask %d\n", mask);
 		i++;
-		usleep(40);
+		usleep(70);
 	}
 }
 
@@ -54,14 +60,25 @@ void	client(pid_t pid, char *message)
 int	main(int argc, char *argv[])
 {	
 	pid_t	pid;
+	int		res;
 
 	pid = 0;
-	// Do not forget to check inputs!!!!
-	if (argc == 3)
-	{
-		pid = ft_atoi(argv[1]);
-		ft_printf("Client pid %d\n", (int)pid);
+	if (argc != 3)
+		ft_exit_failure();
+	else
+	{	
+		res = ft_atoi_ext(argv[1], &pid);
+		if (res == 0)
+		{			
+			ft_printf("Error to read the server pid\n");
+			ft_exit_failure();
+		}
+		if (ft_strlen(argv[2]) == 0)
+		{
+			ft_exit_failure();
+		}
+		ft_printf("Client sending massage to server with pid %d\n", (int)pid);
+		client(pid, argv[2]);
 	}
-	client(pid, argv[2]);
 	return (0);
 }
