@@ -6,27 +6,32 @@
 #    By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/27 11:24:29 by amorcill          #+#    #+#              #
-#    Updated: 2021/12/28 10:01:38 by amorcill         ###   ########.fr        #
+#    Updated: 2021/12/29 13:27:49 by amorcill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= minital
-SERVERNAME	= server
-CLIENTNAME  = client
+NAME 		= minitalk
+SERVER_NAME	= server
+CLIENT_NAME = client
 CC			= gcc
 #FLAGS		= -Wall -Wextra -Werror -g -fsanitize=address -fsanitize=address
-FLAGS		= -Wall -Wextra -Werror
-OBJS		= $(patsubst %.c, %.o, $(SRCS))
-SRCS		=	server.c \
+FLAGS		= -Wall -Wextra -Werror -g
+SERVER_OBJS		= $(patsubst %.c, %.o, $(SERVER_SRCS))
+CLIENT_OBJS		= $(patsubst %.c, %.o, $(CLIENT_SRCS))
+SERVER_SRCS		=	server.c
+CLIENT_SRCS		=	client.c
 
 			 
 %.o: %.c
 	$(CC) $(FLAGS) -Ilibft -c $< -o $@
 
-all: $(NAME)
+all: $(SERVER_NAME) $(CLIENT_NAME)
 
-$(NAME): libft/libft.a $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -Llibft -lft -o $(SERVERNAME) 
+$(SERVER_NAME): libft/libft.a $(SERVER_OBJS)
+	$(CC) $(FLAGS) $(SERVER_OBJS) -Llibft -lft -o $(SERVER_NAME) 
+
+$(CLIENT_NAME): libft/libft.a $(CLIENT_OBJS)
+	$(CC) $(FLAGS) $(CLIENT_OBJS) -Llibft -lft -o $(CLIENT_NAME) 
 
 clean:
 	rm -f *.o
@@ -35,9 +40,10 @@ clean:
 
 fclean: clean
 	make -C libft fclean	
-	rm -f $(NAME)
+	rm -f $(SERVER_NAME)
+	rm -f $(CLIENT_NAME)
 
-re: fclean $(NAME)
+re: fclean $(SERVER_NAME) $(CLIENT_NAME)
 	
 libft/libft.a:
 	make -C libft all
