@@ -16,11 +16,7 @@ This project is for Mac OS.
 * `make`
 
 * Run program with ``` ./minitalk```
-  
 
-## Useful Links
-
-* [web](https://github.com)
 
 ## Sanitize
 Add -g in gcc command.
@@ -36,3 +32,9 @@ Add in header file this define:
 And used it from any part of your program
 
 	PRINT_HERE();
+
+
+## Testing with text file
+
+	./client 48398 "`cat file-name` "
+

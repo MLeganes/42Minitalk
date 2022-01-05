@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 17:51:42 by amorcill          #+#    #+#             */
-/*   Updated: 2021/12/29 17:40:55 by amorcill         ###   ########.fr       */
+/*   Updated: 2021/12/30 20:31:10 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	server(void)
 	signal(SIGUSR1, ft_handler_minitalk);
 	while (1)
 	{
-		sleep(1);
 	}
 	return ;
 }

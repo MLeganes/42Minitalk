@@ -6,7 +6,7 @@
 /*   By: amorcill <amorcill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 09:53:46 by amorcill          #+#    #+#             */
-/*   Updated: 2021/12/29 17:45:25 by amorcill         ###   ########.fr       */
+/*   Updated: 2021/12/30 20:29:46 by amorcill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,12 @@ static void	ft_post_char(pid_t pid, unsigned char c)
 	while (i < 8)
 	{
 		if ((c & mask) > 0)
-		{
 			kill(pid, SIGUSR1);
-			ft_printf("1");
-		}
 		else
-		{
 			kill(pid, SIGUSR2);
-			ft_printf("0");
-		}
 		mask = mask / 2;
-		ft_printf("mask %d\n", mask);
 		i++;
-		usleep(70);
+		usleep(200);
 	}
 }
 
@@ -69,7 +62,7 @@ int	main(int argc, char *argv[])
 	{	
 		res = ft_atoi_ext(argv[1], &pid);
 		if (res == 0)
-		{			
+		{		
 			ft_printf("Error to read the server pid\n");
 			ft_exit_failure();
 		}
