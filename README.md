@@ -4,19 +4,19 @@ The purpose of this project is to code a small data exchange program using UNIX 
 
 ## Prerequisites
 
-This project is for Mac OS.
+This project is for Mac OS and Linux.
 
 ## Installation
 
-* `git@github.com:MLeganes/42Minitalk.git` this repository
+* git clone`git@github.com:MLeganes/42Minitalk.git`
 * `cd 42Minitalk`
 
 ## Running
  
 * `make`
-
-* Run program with ``` ./minitalk```
-
+* Run server ``` ./server```
+* Run client ``` ./client <pid-server> <message>```
+* Run client with with text file ```./client <pid-server> "`cat file-name`" ```
 
 ## Sanitize
 Add -g in gcc command.
@@ -32,9 +32,3 @@ Add in header file this define:
 And used it from any part of your program
 
 	PRINT_HERE();
-
-
-## Testing with text file
-
-	./client 48398 "`cat file-name` "
-
